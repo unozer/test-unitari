@@ -3,9 +3,10 @@ import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { TestHostComponent } from './test-host.component';
 
-describe('Test Input/Output', () => {
+describe('TestHostComponent', () => {
   let component: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
+  let container: HTMLElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -15,6 +16,7 @@ describe('Test Input/Output', () => {
     
     fixture = TestBed.createComponent(TestHostComponent);
     component = fixture.componentInstance;
+    container = fixture.nativeElement.querySelector('#copyright');
     fixture.detectChanges();
   });
 
@@ -38,5 +40,13 @@ describe('Test Input/Output', () => {
     const likeButton = await loader.getHarness(MatButtonHarness);
     await likeButton.click();
     expect(component.isFavorite).toBeTrue();
+  });
+
+  it('should have copyright class', () => {
+    expect(container.classList).toContain('copyright');
+  });
+
+  it('should have copyright text', () => {
+    expect(container.textContent).toContain(new Date().getFullYear().toString());
   });
 });
