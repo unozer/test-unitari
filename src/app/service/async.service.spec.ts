@@ -13,4 +13,16 @@ describe('AsyncService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should set items', () => {
+    const result = service.setItem('Camera');
+    expect(result.length).toBe(4);
+  });
+
+  it('should get items', (done) => {
+    service.getItem().subscribe(items => {
+      expect(items.length).toBe(3);
+      done();
+    })
+  });
 });
