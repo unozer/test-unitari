@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { MatButtonHarness } from '@angular/material/button/testing';
 import { TestHostComponent } from './test-host.component';
 
 describe('Test Input/Output', () => {
@@ -29,6 +30,13 @@ describe('Test Input/Output', () => {
   it('should emit liked event', () => {
     const likeButton: HTMLButtonElement = fixture.nativeElement.querySelector('button');
     likeButton.click();
+    expect(component.isFavorite).toBeTrue();
+  });
+
+  it('should emit liked event using harness', async () => {
+    const loader = TestbedHarnessEnvironment.loader(fixture);
+    const likeButton = await loader.getHarness(MatButtonHarness);
+    await likeButton.click();
     expect(component.isFavorite).toBeTrue();
   });
 });
