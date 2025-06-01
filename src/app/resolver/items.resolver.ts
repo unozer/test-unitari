@@ -4,5 +4,5 @@ import { inject } from '@angular/core';
 
 export const itemResolver: ResolveFn<String[]> = () => {
   const asyncService = inject(AsyncService);
-  return asyncService.getItems();
+  return asyncService.getItem();
 };
